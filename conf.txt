@@ -1,0 +1,24 @@
+<?php
+/*
+Params
+*/
+/*
+Database
+*/
+function BDD()
+{
+	return new PDO('mysql:host=localhost;dbname=id3786257_appjudo;charset=utf8', 'id3786257_appjudo', '3Ap555h<*~8XMXe>c}cT');
+}
+
+/*
+appelation
+
+*/
+function dd(...$vars){
+	foreach ($vars as $var) {
+		echo "<pre>";
+		print_r($var);
+		echo "</pre>";
+	}
+}
+?>
