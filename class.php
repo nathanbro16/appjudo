@@ -63,11 +63,9 @@ class Authent
 	}
 	/**
 	*
-<<<<<<< HEAD
 	*@param $filed champ,
-=======
-	*@param $filed champ, 
->>>>>>> ce8e5abd6feb77ad1c50a1f78fb45be4c08f1711
+	*@param $filed champ,
+
 	*/
 	public function separator(string $field, string $separator)
 	{
@@ -78,11 +76,7 @@ class Authent
 		}
 		$this->errors[$field] = "le champs login posse un problème.".$separator;
 		return false;
-<<<<<<< HEAD
 
-=======
-				
->>>>>>> ce8e5abd6feb77ad1c50a1f78fb45be4c08f1711
 	}
 	public function userexist(string $field)
 	{
@@ -92,11 +86,8 @@ class Authent
 		$userinfo = $requser->fetch();
 		if ($userinfo['COUNT(*)'] != 1) {
 			$this->errors[$field] = "Cet utilisateur n\'exsiste pas !";
-<<<<<<< HEAD
 			return false;
-=======
-			return false; 
->>>>>>> ce8e5abd6feb77ad1c50a1f78fb45be4c08f1711
+			return false;
 		}
 		return true;
 	}
@@ -107,11 +98,8 @@ class Authent
 		$userinfo = $requser->fetch();
 		if (empty($userinfo['pass'])) {
 			$this->newpass = true;
-<<<<<<< HEAD
 			return true;
-=======
-			return true; 
->>>>>>> ce8e5abd6feb77ad1c50a1f78fb45be4c08f1711
+			return true;
 		}
 		return true;
 	}
@@ -152,11 +140,7 @@ class Authent
 			}
 			$this->errors[$filed] = $texterror."dois comporter 8 chiffre. Exemple : ".date("dmY.");
 			return false;
-<<<<<<< HEAD
 
-=======
-			
->>>>>>> ce8e5abd6feb77ad1c50a1f78fb45be4c08f1711
 		}else{
 			if (password_verify($this->data[$filed], $userinfo['pass'])) {
 				session_start();
@@ -167,11 +151,8 @@ class Authent
 			$this->errors[$filed] = $texterror."ne correspond pas.";
 
 		}
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> ce8e5abd6feb77ad1c50a1f78fb45be4c08f1711
+
 		return false;
 	}
 	public function insertpassword(string $filed, string $PWD1, string $PWD2)
@@ -186,11 +167,8 @@ class Authent
 				return true;
 
 			}
-<<<<<<< HEAD
 
-=======
-		 	
->>>>>>> ce8e5abd6feb77ad1c50a1f78fb45be4c08f1711
+
 			$this->errors[$filed] = "Erreur technique, merci de veuillez contacter un responsable.";
 			return false;
 		}
@@ -217,11 +195,8 @@ class Authent
 /**
  * infouser
  */
-<<<<<<< HEAD
+
 class user
-=======
-class user 
->>>>>>> ce8e5abd6feb77ad1c50a1f78fb45be4c08f1711
 {
 	private $id;
 	private $grdsite;
@@ -243,97 +218,23 @@ class user
 		return $userinfo;
 	}
 	public function grdjudo($grade){
-		$gradejudo = array(
-			array('name' => 'blanche'),
-			array('name' => 'blanche - jaune'),
-			array('name' => 'jaune'),
-			array('name' => 'jaune - orange'),
-			array('name' => 'orange'),
-			array('name' => 'orange - verte'),
-			array('name' => 'verte'),
-			array('name' => 'verte - bleu'),
-			array('name' => 'bleu'),
-			array('name' => 'Maron'),
-			array('name' => '1<SUP>er</SUP> Dan'),
-			array('name' => '2<SUP>ème</SUP> Dan'),
-			array('name' => '3<SUP>ème</SUP> Dan'),
-			array('name' => '4<SUP>ème</SUP> Dan'),
-			array('name' => '5<SUP>ème</SUP> Dan'),
-			array('name' => '6<SUP>ème</SUP> Dan'),
-			array('name' => '7<SUP>ème</SUP> Dan'),
-			array('name' => '8<SUP>ème</SUP> Dan'),
-			array('name' => '9<SUP>ème</SUP> Dan'),
-			array('name' => '10<SUP>ème</SUP> Dan'),
-		);
+		$gradejudo = GetParamsRankJudo();
 		$grdinfo = $gradejudo[($grade - 1)];
-		$grdinfo['html'] = $grade;
-<<<<<<< HEAD
 		return $grdinfo;
 	}
 	public function age($date){
-=======
-		//$reqgrdju = $this->bdd->prepare("SELECT * FROM grdjudo WHERE id = ?");
-		//$reqgrdju->execute(array($grade));
-		//$grdinfo = $reqgrdju->fetch();
-		return $grdinfo;
-	}
-	public function age($date){
-
->>>>>>> ce8e5abd6feb77ad1c50a1f78fb45be4c08f1711
 	  $d = strtotime($date);
 	  return (int) ((time() - $d) / 3600 / 24 / 365.242);
 	}
 	public function nameyear($age, $sexe){
-<<<<<<< HEAD
-		$categoryage = array(
-			'Male' =>
-			array(
-				array('5' => 'Mini poussins'),
-				array('7' => 'Poussins'),
-				array('9' => 'Pupilles'),
-				array('11' => 'Benjamins'),
-				array('13' => 'Minimes'),
-				array('15' => 'Cadets'),
-				array('18' => 'Juniors'),
-				array('21' => 'Seniors'),
-			),
-			'female' =>
-			array(
-				array('5' => 'Mini poussins'),
-				array('7' => 'Poussins'),
-				array('9' => 'Pupilles'),
-				array('11' => 'Benjamines'),
-				array('13' => 'Minimes'),
-				array('15' => 'Cadettes'),
-				array('18' => 'Juniors'),
-				array('21' => 'Seniors'),
-			),
-		);
-
-		
-=======
-
-		if ($age <= '5') {
-			echo "Mini poussins";
-
-		} elseif ($age <='7') {
-			echo "poussins";
-		} elseif ($age <='9') {
-			echo "pupilles";
-		}elseif ($age <='11') {
-			echo "benjamins";
-		} elseif ($age <='13') {
-			echo "minimes";		
-		}elseif ($age <= '18') {
-			if ($sexe == "male") {
-				echo "CADET";
-			}elseif ($sexe == 'female') {
-				echo "CADETTE";
-			}else{
-				echo "CADET(TE)";
+		$categoryages = GetParamsCategoryAge();
+		foreach ($categoryages[$sexe] as $key => $categoryage) {
+			if ($key <= $age) {
+				$resultat = $categoryage;
 			}
 		}
->>>>>>> ce8e5abd6feb77ad1c50a1f78fb45be4c08f1711
+		echo $resultat;
+		//return 'indisponible';
 	}
 	public function getgrdsite()
 	{
@@ -350,20 +251,10 @@ class user
 class gradesysteme
 {
 	private $grdsys;
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> ce8e5abd6feb77ad1c50a1f78fb45be4c08f1711
 	function __construct($grdsys)
 	{
 		if ($grdsys >= '4') {
 			throw new Exception("Votre grade systeme comporte une erreur.");
-<<<<<<< HEAD
-
-=======
-			
->>>>>>> ce8e5abd6feb77ad1c50a1f78fb45be4c08f1711
 		}
 		$this->grdsys = $grdsys;
 	}
