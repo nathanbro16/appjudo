@@ -1,5 +1,6 @@
 <?php
 /*
+ok
 Params editable
 */
 ### Category old editable
@@ -68,7 +69,6 @@ function BDD()
 
 /*
 Debug
-
 */
 function DebugArray(...$vars){
 	foreach ($vars as $var) {
