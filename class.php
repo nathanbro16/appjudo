@@ -9,7 +9,7 @@ class AuthentValidator extends Authent
 		parent::validates($data, $db);
 		$this->validate('login', 'separator', '-');
 		if (empty($this->errors)) $this->validate('login', 'userexist');
-		if (empty($this->errors)) $this->validate('Password', 'passexist');
+		$this->validate('Password', 'passexist');
 		if (empty($this->errors)) $this->validate('Password', 'passtrue');
 		$return['errors'] = $this->errors;
 		if (empty($this->errors)) $return['newpass'] = $this->newpass;
@@ -91,17 +91,19 @@ class Authent
 		}
 		return true;
 	}
-	public function passexist(string $filed)
+	public function passexist(string $field)
 	{
-		$requser = $this->bdd->prepare("SELECT * FROM user WHERE name = ? AND surname = ?");
-		$requser->execute(array($this->data['name'], $this->data['surname']));
-		$userinfo = $requser->fetch();
-		if (empty($userinfo['pass'])) {
-			$this->newpass = true;
-			return true;
+		if (empty($this->errors)) {
+			$requser = $this->bdd->prepare("SELECT * FROM user WHERE name = ? AND surname = ?");
+			$requser->execute(array($this->data['name'], $this->data['surname']));
+			$userinfo = $requser->fetch();
+			if (empty($userinfo['pass'])) {
+				$this->newpass = true;
+				return true;
+				return true;
+			}
 			return true;
 		}
-		return true;
 	}
 	public function passtrue(string $filed)
 	{

@@ -7,18 +7,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 		$ErreurNewpass = $user->validatesconnect($_POST, BDD());
 		?>
 		<script>
+				jQuery('.alert').remove();
 		    jQuery('.form-control').removeClass('is-invalid');
 		    jQuery('.form-control').addClass('is-valid');
 		    jQuery('#inscript').removeClass('is-invalid').addClass('is-valid');
 		</script>
-		<?php 
+		<?php
 		if (!empty($ErreurNewpass['errors'])) {
 			foreach ($ErreurNewpass['errors'] as $k => $error) {
 		      ?>
 		      <script>
 		        jQuery("#charging").hide();
 		        jQuery("#form").show();
-		        jQuery('#error<?= $k ?>').remove(); 
+		        jQuery('#error<?= $k ?>').remove();
 		        jQuery('#input<?= $k ?>').removeClass('is-valid').addClass('is-invalid');
 		        jQuery('#error').append('<div class="alert alert-danger" id="error<?= $k ?>" role="alert"><i class="fas fa-times"></i> <?= $error ?> </div>');
 		      </script>
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 
 							jQuery.post(
 								'connect.php?newpass',
-								{ 
+								{
 								    Password1 : jQuery("#inputPassword1").val(),
 								    Password2 : jQuery("#inputPassword2").val(),
 								},
@@ -61,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 									jQuery("#response").html(data);
 								},
 
-							); 
+							);
 						}else{
 							console.log("ok");
 							jQuery('#error').append('<div class="alert alert-danger" id="error" role="alert"><i class="fas fa-times"></i> Les mot de passe ne correspondent pas ! </div>');
@@ -79,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 				</script>
 			  	<?php
 			}
-		 
+
 		}
 	elseif (isset($_GET['newpass'])):
 		$user = new AuthentValidator();
@@ -91,14 +92,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 		    jQuery('.form-control').addClass('is-valid');
 		    jQuery('#inscript').removeClass('is-invalid').addClass('is-valid');
 		</script>
-		<?php 
+		<?php
 		if (!empty($ErreurNewpass['errors'])) {
 			foreach ($ErreurNewpass['errors'] as $k => $error) {
 		      ?>
 		      <script>
 		        jQuery("#charging").hide();
 		        jQuery("#form").show();
-		        jQuery('#error<?= $k ?>').remove(); 
+		        jQuery('#error<?= $k ?>').remove();
 		        jQuery('#input<?= $k ?>').removeClass('is-valid').addClass('is-invalid');
 		        jQuery('#error').append('<div class="alert alert-danger" id="error<?= $k ?>" role="alert"><i class="fas fa-times"></i> <?= $error ?> </div>');
 		      </script>
