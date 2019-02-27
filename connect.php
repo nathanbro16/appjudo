@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST'):
-	include 'class.php';
+	include 'fonctions/auth.php';
 	include 'conf.txt';
 	if (isset($_GET['connect'])):
 		$user = new AuthentValidator();
@@ -27,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 		    }
 		}else {
 		  	if ($ErreurNewpass['newpass'] === true){
-			    var_dump($ErreurNewpass);
 			    ?>
 			    <script>
 			    	jQuery('#action').text('Bienvenue.');
