@@ -136,7 +136,7 @@ class Event
 	private $description;
 	private $start;
 	private $end;
-	private $inscrip;
+	private $inscription;
 
 	public function getid(): int{
 		return $this->id;
@@ -155,7 +155,7 @@ class Event
 	}
 	public function getinscp()
 	{
-		return $this->inscrip;
+		return $this->inscription;
 	}
 	public function setName(string $name)
 	{

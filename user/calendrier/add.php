@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 	<?php 
 	
 	if (!empty($errors)){		
-    echo "okk";
 			foreach ($errors as $k => $error) {
 			?>
 			<script>
@@ -49,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 	}
 
 	
-endif;
-if (!empty($_GET['interfaceadd'])):
+
+elseif (isset($_GET['interfaceadd'])):
 ?>
 
 <script>

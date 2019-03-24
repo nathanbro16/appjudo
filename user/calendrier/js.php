@@ -1,17 +1,9 @@
 <?php
 session_start();
-include '../../conf.txt';
-include '../../class.php';
-include 'class.php';
-try {
-	$bdd = BDD();
-$user = new user($_SESSION['id'] ?? null ,$bdd);
-} catch (\Exception $e) {
-	http_response_code(403);
-	echo $e->getMessage();
-	die();
-}
-
+require_once '../../conf.txt';
+require_once '../../functions/user.php';
+require_once 'class.php';
+$user = new user(BDD(), '../index.php');
 $user->infosuer();
 try {
 	$month = new Month(null, null, null, $_GET['start'] ?? null, $_GET['end'] ?? null);
@@ -19,7 +11,7 @@ try {
 	echo $e->getMessage();
 	die();
 }
-	$events = new Events($bdd);
+	$events = new Events(BDD());
 	$events = $events->getEeventsBetween($month->getstart(), $month->getend());
 	foreach ($events as $event) {
 		$data[] = array(

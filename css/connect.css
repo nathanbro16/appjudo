@@ -9,9 +9,7 @@ html{
 
 }
 body {
-
-  background: #007bff;
-	background: -moz-linear-gradient(-45deg, #ff2483 0%, #19b7f0 100%);	/*background-color: #f5f5f5;*/
+	background: linear-gradient(-45deg, #ff2483 20%, #19b7f0 80%);
 
 }
 .card-signin {

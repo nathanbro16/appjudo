@@ -3,7 +3,7 @@ include 'class.php';
 // Récupération udes infos utilisateur
 
 try {
-	$insevent = new inscripevent($id ?? null, $bdd);
+	$insevent = new inscripevent($id ?? null, BDD());
 	$infoevent = $insevent->validins();
 } catch (Exception $e) {
 	echo $e->getMessage();

@@ -100,7 +100,6 @@ class Authent
 			if (empty($userinfo['pass'])) {
 				$this->newpass = true;
 				return true;
-				return true;
 			}
 			return true;
 		}
@@ -178,19 +177,17 @@ class Authent
 		return false;
     }
     
-/*
-	public function exeval()
-	{
-		$requser = $this->bdd->prepare("SELECT *, COUNT(*) FROM user WHERE name = ? AND pass = ? AND surname = ?");
-		$requser->execute(array($this->name, $this->pass, $this->surname));
-		$userinfo = $requser->fetch();
-		if ($userinfo['COUNT(*)'] == 1) {
-			session_start();
-			$_SESSION['id'] = $userinfo['id'];
-			$_SESSION['name'] = $userinfo['name'];
-			return true;
-		}
-	}
-*/
 
+}
+function is_connect():bool {
+	if (session_status() === PHP_SESSION_NONE) {
+			session_start();
+	}
+	return !empty($_SESSION['name']) and !empty($_SESSION['id']) and !isset($_SESSION['newpass']) ;
+}
+function force_user_connect():void {
+	if(!$this->is_connect()){
+			http_response_code(401);
+			exit();
+	}
 }

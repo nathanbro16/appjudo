@@ -1,10 +1,13 @@
 <?php
-include 'class.php';
-echo alreadyconect('user/');
-function alreadyconect($redirect)
-{
-  session_start();
-  if (!empty($_SESSION['id']) and !empty($_SESSION['name'])) return '<script>document.location.href="'.$redirect.'"</script>';
-  else return include 'connect.html';
+require_once 'functions/auth.php';
+if (is_connect()){
+  ?> <script>
+  document.location.href="user/";
+  </script> <?php
+}elseif(!empty($_SESSION)){
+  session_unset();
+  header('location: index.php');
+}elseif(empty($_SESSION)){
+  require_once 'connect.html';
 }
 ?>

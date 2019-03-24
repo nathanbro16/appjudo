@@ -56,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 
     <?php
   }
-  endif;
-if (!empty($_GET['InterfaceEdit'])):
+
+elseif (isset($_GET['InterfaceEdit'])):
 ?>
 <script>
   //Formulaire
@@ -68,7 +68,7 @@ jQuery(document).ready(function() {
 function addmodif($id) {
 
     jQuery.post(
-        'calendrier/edit.php?id='+ $id, // Un script PHP que l'on va créer juste après
+        'calendrier/edit.php?id='+ $id,
         { 
             eventname : jQuery("#eventname").val(),
             date : jQuery("#date").val(),
@@ -150,9 +150,9 @@ function eventdel($id) {
             <div class="form-group" id="grinscript">
               <label for="insevent">Inscription a l'évènement</label>
               <select class="custom-select my-1 mr-sm-2" id="inscript">
-                <option  <?php if ($event->getend() === '1') {echo "selected";} ?> value="1">Sans inscription</option>
-                <option <?php if ($event->getend() === '2') {echo "selected";} ?> value="2">Requeris un compte</option>
-                <option <?php if ($event->getend() === '3') {echo "selected";} ?> value="3">Toute personne meme sans compte</option>
+                <option <?= $event->getinscp() === '1' ? 'selected' : null ; ?> value="1">Sans inscription</option>
+                <option <?= $event->getinscp() === '2' ? 'selected' : null ; ?> value="2">Requeris un compte</option>
+                <option <?= $event->getinscp() === '3' ? 'selected' : null ;?> value="3">Toute personne meme sans compte</option>
               </select>
             </div>
           </div>
