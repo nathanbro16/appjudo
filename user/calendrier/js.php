@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../../conf.txt';
+require_once '../../conf.php';
 require_once '../../functions/user.php';
 require_once 'class.php';
 $user = new user(BDD(), '../index.php');

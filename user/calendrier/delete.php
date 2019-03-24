@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../../conf.txt';
+include '../../conf.php';
 include '../../class.php';
 require 'class.php';
 try {

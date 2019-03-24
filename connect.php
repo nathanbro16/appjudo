@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 	include 'functions/auth.php';
-	include 'conf.txt';
+	include 'conf.php';
 	if (isset($_GET['connect'])):
 		$user = new AuthentValidator();
 		$ErrorAuth = $user->validatesconnect($_POST, BDD());

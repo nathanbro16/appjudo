@@ -1,7 +1,7 @@
 <?php
 include 'class.php';
 include 'validator.php';
-include '../../conf.txt';
+include '../../conf.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 	$data = $_POST;
 	$errors = [];

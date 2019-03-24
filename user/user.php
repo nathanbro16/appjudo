@@ -1,7 +1,7 @@
 <?php
 require_once '../functions/user.php';
 //include '../class.php';
-include '../conf.txt';
+include '../conf.php';
 $user = new user(BDD(), '../index.php');
 
 $userinfo = $user->infosuer();

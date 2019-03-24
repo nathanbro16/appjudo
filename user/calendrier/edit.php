@@ -1,5 +1,5 @@
 <?php
-include '../../conf.txt';
+include '../../conf.php';
 require 'class.php';
 $events = new Events(BDD());
 $errors = [];
