@@ -25,30 +25,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
     jQuery('.form').addClass('is-valid');
     jQuery('#inscript').removeClass('is-invalid').addClass('is-valid');
   </script>
-  <?php 
-  
+  <?php
+
   if (!empty($errors)){
     echo "ok";
     dd($errors);
-    
+
       foreach ($errors as $k => $error) {
       ?>
       <script>
-        jQuery('#error<?= $k ?>').remove(); 
+        jQuery('#error<?= $k ?>').remove();
         jQuery('#<?= $k ?>').removeClass('is-valid').addClass('is-invalid');
         jQuery('#gr<?= $k ?>').append('<div class="alert alert-danger" id="error<?= $k ?>" role="alert"><i class="fas fa-times"></i> <?= $error ?> </div>');
       </script>
-      
+
       <?php
       }
-      
+
 
   }else{
     $events->hydrate($event, $data);
     $events->update($event);
     ?>
     <script>
-      jQuery('.alert').remove(); 
+      $('#calendar').fullCalendar('refetchEvents');
+      jQuery('.alert').remove();
       jQuery('.modal-body').append('<div class="alert alert-success" role="alert"> l\'évènement a bien été modifier. </div>');
       jQuery('.form').removeClass('is-invalid');
       jQuery('.form').addClass('is-valid');
@@ -69,7 +70,7 @@ function addmodif($id) {
 
     jQuery.post(
         'calendrier/edit.php?id='+ $id,
-        { 
+        {
             eventname : jQuery("#eventname").val(),
             date : jQuery("#date").val(),
             start : jQuery("#start").val(),
@@ -81,8 +82,8 @@ function addmodif($id) {
           jQuery("#js").html(data);
 
     },
-        
-     );   
+
+     );
 }
 function eventdel($id) {
 
@@ -104,7 +105,7 @@ function eventdel($id) {
       }
 
       });
-  
+
 }
 </script>
 
@@ -117,7 +118,7 @@ function eventdel($id) {
       </div>
       <div class="modal-body">
         <div id="js">
-  
+
     </div>
         <div class="row">
           <div class="col-sm-6">
@@ -170,7 +171,6 @@ function eventdel($id) {
         <button type="button" id="addmodif" class="btn btn-primary">Modifier l'évènement</button>
         <button type="button" id="delete" class="btn btn-danger">Suprimer l'évènement</button>
       </div>
-   
+
 <?php
 endif;
-

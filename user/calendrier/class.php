@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ *
  */
 class Month
 {
@@ -17,10 +17,10 @@ class Month
 	month =  1 - 12
 	$year = l'année / year
 	**/
-	
+
 	function __construct($month = null, $year = null, $day = null, $start = null, $end = null)
 	{
-				
+
 		if ($month === null) {
 			$month = intval(date('m'));
 		}
@@ -106,7 +106,7 @@ class Month
 	{
 		return new \DateTimeImmutable("{$this->year}-{$this->month}-{$this->day}");
 	}
-	public function wathdayname($date):string 
+	public function wathdayname($date):string
 	{
 		if (date('Y-m-d') === $this->getDay()->format('Y-m-d')) {
 			$wathdayname = "Aujourd'hui";
@@ -127,7 +127,7 @@ class Month
 	}
 }
 /**
- * 
+ *
  */
 class Event
 {
@@ -175,13 +175,13 @@ class Event
 	}
 	public function setinscp(string $inscrip)
 	{
-		$this->inscrip = $inscrip;
+		$this->inscription = $inscrip;
 	}
 }
 /**
- * 
+ *
  */
-class Events 
+class Events
 {
 
 	private $bdd;
@@ -264,7 +264,7 @@ class Events
 
 }
 /**
- * 
+ *
  */
 class Validator
 {
@@ -357,4 +357,3 @@ class EventValidator extends Validator
 	}
 
 }
-

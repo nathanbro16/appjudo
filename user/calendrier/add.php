@@ -14,40 +14,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
     jQuery('.form').addClass('is-valid');
     jQuery('#inscript').removeClass('is-invalid').addClass('is-valid');
   </script>
-	<?php 
-	
-	if (!empty($errors)){		
-			foreach ($errors as $k => $error) {
+	<?php
+	if (!empty($errors)):
+			foreach ($errors as $k => $error):
 			?>
 			<script>
-				jQuery('#error<?= $k ?>').remove(); 
+				jQuery('#error<?= $k ?>').remove();
 				jQuery('#<?= $k ?>').removeClass('is-valid').addClass('is-invalid');
 				jQuery('#gr<?= $k ?>').append('<div class="alert alert-danger" id="error<?= $k ?>" role="alert"><i class="fas fa-times"></i> <?= $error ?> </div>');
 			</script>
-			
 			<?php
-			}
-			
-
-	}else{
-
+		endforeach;
+	else:
 		$event = new Event();
   	$events = new Events(BDD());
     $events->hydrate($event, $data);
 		$events->create($event);
 		?>
 		<script>
-			jQuery('.alert').remove(); 
+			$('#calendar').fullCalendar('refetchEvents');
+			jQuery('.alert').remove();
 			jQuery('.modal-body').append('<div class="alert alert-success" role="alert"> l\'évènement a bien été enregistré. </div>');
 			jQuery('.form').removeClass('is-invalid');
 			jQuery('.form').addClass('is-valid');
       custom-select
 		</script>
-
 		<?php
-	}
+	endif;
 
-	
+
 
 elseif (isset($_GET['interfaceadd'])):
 ?>
@@ -62,7 +57,7 @@ function addevent() {
 
     jQuery.post(
         'calendrier/add.php', // Un script PHP que l'on va créer juste après
-        { 
+        {
         	eventname : jQuery("#eventname").val(),
             date : jQuery("#date").val(),
             start : jQuery("#start").val(),
@@ -74,8 +69,8 @@ function addevent() {
         	jQuery("#js").html(data);
 
 		},
-        
-     );   
+
+     );
 };
 </script>
 
@@ -90,7 +85,7 @@ function addevent() {
       </div>
       <div class="modal-body">
       	<div id="js">
-	
+
 		</div>
       	<div class="row">
       		<div class="col-sm-6">
