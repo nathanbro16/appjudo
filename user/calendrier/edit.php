@@ -151,9 +151,9 @@ function eventdel($id) {
             <div class="form-group" id="grinscript">
               <label for="insevent">Inscription a l'évènement</label>
               <select class="custom-select my-1 mr-sm-2" id="inscript">
-                <option <?= $event->getinscp() === '1' ? 'selected' : null ; ?> value="1">Sans inscription</option>
-                <option <?= $event->getinscp() === '2' ? 'selected' : null ; ?> value="2">Requeris un compte</option>
-                <option <?= $event->getinscp() === '3' ? 'selected' : null ;?> value="3">Toute personne meme sans compte</option>
+                <option <?= $event->getinscp() === '0' ? 'selected' : null ; ?> value="1">Sans inscription</option>
+                <option <?= $event->getinscp() === '1' ? 'selected' : null ; ?> value="2">Requeris un compte</option>
+                <option <?= $event->getinscp() === '2' ? 'selected' : null ;?> value="3">Toute personne meme sans compte</option>
               </select>
             </div>
           </div>
