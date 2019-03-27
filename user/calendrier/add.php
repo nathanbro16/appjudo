@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 	$errors = $Validator->validates($_POST);
 	?>
   <script>
-    jQuery('.alert').remove();
+    jQuery('.alert-danger').remove();
     jQuery('.form').removeClass('is-invalid');
     jQuery('.form').addClass('is-valid');
     jQuery('#inscript').removeClass('is-invalid').addClass('is-valid');
@@ -32,12 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 		$events->create($event);
 		?>
 		<script>
-			$('#calendar').fullCalendar('refetchEvents');
-			jQuery('.alert').remove();
 			jQuery('.modal-body').append('<div class="alert alert-success" role="alert"> l\'évènement a bien été enregistré. </div>');
 			jQuery('.form').removeClass('is-invalid');
 			jQuery('.form').addClass('is-valid');
-      custom-select
+			$('#calendar').fullCalendar('refetchEvents');
 		</script>
 		<?php
 	endif;

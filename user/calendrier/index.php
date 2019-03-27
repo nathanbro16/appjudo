@@ -32,7 +32,10 @@
 		},
 		success : function(data){
 			jQuery("#datavent").html(data);
-			jQuery('#event').modal('show');   
+			jQuery('#event').modal('show');
+			jQuery('#event').on('hidden.bs.modal', function (e) {
+  			jQuery('#event').remove();
+			});
 
 		},
 		error : function(resultat, statut, erreur){
