@@ -1,68 +1,85 @@
 <?php
 class user
 {
-    private $id;
 	private $grdsite;
 	public $name;
-    private $bdd;
+  private $bdd;
+  private $session;
+	private $infouser;
 
-    function __construct (\PDO $bdd, string $RedirectURL){
-        $this->ini_bdd($bdd);
-        $this->force_user_connect($RedirectURL);
-        $this->ini_user();
+  function __construct (\PDO $bdd, string $RedirectURL){
+      $this->ini_bdd($bdd);
+      $session = new session();
+      $session->force_user_connect();
+      $this->session = $session;
 
-    }
-    private function is_connect():bool {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        return !empty($_SESSION['name']) and !empty($_SESSION['id']) and !isset($_SESSION['newpass']) ;
-    }
-    public function force_user_connect():void {
-        if(!$this->is_connect()){
-            http_response_code(401);
-            exit();
-        }
-    }
-    private function ini_bdd(\PDO $bdd){
-        $this->bdd = $bdd;
-    }
-    public function ini_user(){
-        $this->id = $_SESSION['id'];
-    }
-	public function infosuer(){
-		$id = $this->id;
-		$requser = $this->bdd->prepare("SELECT * FROM user WHERE id = ?");
-		$requser->execute(array($id));
-		$userinfo = $requser->fetch();
-		$this->grdsite = $userinfo['grdsite'];
-		return $userinfo;
+  }
+  private function ini_bdd(\PDO $bdd){
+      $this->bdd = $bdd;
+  }
+	public function find_user_info() {
+    $id = $this->session->Get_id_User();
+		$statement = $this->bdd->query("SELECT * FROM user WHERE id = $id ");
+    $statement->setFetchMode(\PDO::FETCH_CLASS, Userinfo::class);
+		$result = $statement->fetch();
+		$this->infouser = $result;
+    if ($result === false) {
+			throw new Exception('Aucun résultat n\'a été trouvé');
+		}
+		return $result;
 	}
-	public function grdjudo($grade){
+	public function getgrdjudo(){
 		$gradejudo = GetParamsRankJudo();
-		$grdinfo = $gradejudo[($grade - 1)];
+		$grdinfo = $gradejudo[(7 - 1)];
 		return $grdinfo;
 	}
-	public function age($date){
-	  $d = strtotime($date);
+	public function getage():int{
+	  $d = strtotime($this->infouser->getbirth());
 	  return (int) ((time() - $d) / 3600 / 24 / 365.242);
 	}
-	public function nameyear($age, $sexe){
+	public function getnameyear(){
 		$categoryages = GetParamsCategoryAge();
-		foreach ($categoryages[$sexe] as $key => $categoryage) {
-			if ($key <= $age) {
+		foreach ($categoryages[$this->infouser->getsexe()] as $key => $categoryage) {
+			if ($key <= $this->getage()) {
 				$resultat = $categoryage;
 			}
 		}
 		echo $resultat;
-		//return 'indisponible';
 	}
 	public function getgrdsite()
 	{
 		return $this->grdsite;
 	}
-	public function getiduser()
-	{
-		return $this->id;
+}
+/**
+ *
+ */
+class Userinfo
+{
+	private $name;
+	private $surname;
+	private $birth;
+	private $sexe;
+	private $grdsite;
+
+	public function getname():string
+  {
+		return $this->name;
 	}
+	public function getsurname():string
+  {
+    return $this->surname;
+  }
+  public function getbirth():string
+  {
+    return $this->birth;
+  }
+  public function getsexe():string
+  {
+    return $this->sexe;
+  }
+  public function getgrdsite():int
+  {
+    return $this->grdsite;
+  }
 }

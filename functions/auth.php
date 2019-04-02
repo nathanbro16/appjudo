@@ -176,9 +176,38 @@ class Authent
 		$this->errors[$filed] = "Les champs non pas les même mot de passe.";
 		return false;
     }
-    
+
 
 }
+/**
+ *
+ */
+class session
+{
+
+	private function is_activate()
+	{
+		if (session_start() === PHP_SESSION_NONE) {
+			session_start();
+		}
+	}
+	private function is_connect():bool
+	{
+		$this->is_activate();
+		return !empty($_SESSION['name']) and !empty($_SESSION['id']) and !isset($_SESSION['newpass']) ;
+	}
+	public function force_user_connect():void
+	{
+		if(!$this->is_connect()){
+				http_response_code(401);
+				exit();
+		}
+	}
+	public function Get_id_User(){
+		return $_SESSION['id'];
+	}
+}
+
 function is_connect():bool {
 	if (session_status() === PHP_SESSION_NONE) {
 			session_start();
