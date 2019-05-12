@@ -1,5 +1,5 @@
 <?php
-class user
+class user extends session
 {
 	private $grdsite;
 	public $name;
@@ -18,10 +18,12 @@ class user
       $this->bdd = $bdd;
   }
 	public function find_user_info() {
-    $id = $this->session->Get_id_User();
-		$statement = $this->bdd->query("SELECT * FROM user WHERE id = $id ");
-    $statement->setFetchMode(\PDO::FETCH_CLASS, Userinfo::class);
+    $id = $this->Get_id_User();
+		$statement = $this->bdd->prepare("SELECT * FROM user WHERE id = ? ");
+		$statement->execute(array($id));
+		$statement->setFetchMode(\PDO::FETCH_CLASS, Userinfo::class);
 		$result = $statement->fetch();
+
 		$this->infouser = $result;
     if ($result === false) {
 			throw new Exception('Aucun résultat n\'a été trouvé');
@@ -37,15 +39,7 @@ class user
 	  $d = strtotime($this->infouser->getbirth());
 	  return (int) ((time() - $d) / 3600 / 24 / 365.242);
 	}
-	public function getnameyear(){
-		$categoryages = GetParamsCategoryAge();
-		foreach ($categoryages[$this->infouser->getsexe()] as $key => $categoryage) {
-			if ($key <= $this->getage()) {
-				$resultat = $categoryage;
-			}
-		}
-		echo $resultat;
-	}
+	
 	public function getgrdsite()
 	{
 		return $this->grdsite;

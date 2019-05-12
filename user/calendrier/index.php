@@ -87,6 +87,9 @@
 	});
 
 </script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
 <script>
 	function getadd(){
 	jQuery.ajax({
@@ -111,7 +114,11 @@ function getedit($id){
 	data : 'id=' + $id + '&InterfaceEdit=1',
 	success : function(data){
 		jQuery('.modal-content').html(data);
-		$('#description').summernote({dialogsInBody: true,});
+		$('#description').froalaEditor({
+			enter: $.FroalaEditor.ENTER_P,
+      zIndex: 8000,
+			language: 'fr'
+		})
 	},
 	error : function(resultat, statut, erreur){
 	},
@@ -119,6 +126,10 @@ function getedit($id){
 	}
 	});
 }
+$('#event').on('hide.bs.modal', function (e) {
+	console.log('lala0');
+  $('#description').summernote('destroy');
+})
 </script>
 
 	<div class="card" >

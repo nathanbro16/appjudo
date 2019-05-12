@@ -15,60 +15,64 @@
 </head>
 <body>
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-      <div class="card card-signin my-5">
-        <div class="card-body">
-					<div id="form">
-							<h5 class="card-title text-center">Connectez-vous</h5>
-	            <div class="form-label-group">
-	              <input type="text" id="inputlogin" class="form-control" placeholder="Identifiant" required autofocus>
-	              <label for="inputlogin">Identifiant</label>
-	            </div>
-
-	            <div class="form-label-group">
-	              <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
-	              <label for="inputPassword">Mot de passe</label>
-	            </div>
-
-	            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="button" id="connect">Connection</button>
-							<div id="error">
-
-			        </div>
-	            <hr class="my-4">
-							<p class="mt-5 mb-3 text-muted text-center">Judo-club Ploërmel © 2019</p>
-
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+				<div class="card card-signin my-5" id="load" style="display: none;">
+					<div class="card-body">
+						<div id="charging" >
+							<div class="text-center mb-4">
+								<h1 class="h3 mb-3 font-weight-normal" id="action">Authentification en cours</h1>
+							</div>
+							<div class="row">
+								<div class="chargin">
+									<div class="wBall" id="wBall_1">
+										<div class="wInnerBall"></div>
+									</div>
+									<div class="wBall" id="wBall_2">
+										<div class="wInnerBall"></div>
+									</div>
+									<div class="wBall" id="wBall_3">
+										<div class="wInnerBall"></div>
+									</div>
+									<div class="wBall" id="wBall_4">
+										<div class="wInnerBall"></div>
+									</div>
+									<div class="wBall" id="wBall_5">
+										<div class="wInnerBall"></div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div id="charging" style="display: none;">
-		        <div class="text-center mb-4">
-		          <h1 class="h3 mb-3 font-weight-normal" id="action">Authentification en cours</h1>
-		        </div>
-		        <div class="row">
-		          <div class="chargin">
-		            <div class="wBall" id="wBall_1">
-		              <div class="wInnerBall"></div>
-		            </div>
-		            <div class="wBall" id="wBall_2">
-		              <div class="wInnerBall"></div>
-		            </div>
-		            <div class="wBall" id="wBall_3">
-		              <div class="wInnerBall"></div>
-		            </div>
-		            <div class="wBall" id="wBall_4">
-		              <div class="wInnerBall"></div>
-		            </div>
-		            <div class="wBall" id="wBall_5">
-		              <div class="wInnerBall"></div>
-		            </div>
-		          </div>
-		        </div>
-		      </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+				</div>
+				<div class="card card-signin my-5" id="con">
+					<div class="card-body">
+						<div id="form">
+								<h5 class="card-title text-center">Connectez-vous</h5>
+								<div class="form-label-group">
+									<input type="text" id="inputlogin" class="form-control" placeholder="Identifiant" required autofocus>
+									<label for="inputlogin">Identifiant</label>
+								</div>
+	
+								<div class="form-label-group">
+									<input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+									<label for="inputPassword">Mot de passe</label>
+								</div>
+	
+								<button class="btn btn-lg btn-primary btn-block text-uppercase" type="button" id="connect">Connection</button>
+								<div id="error">
+	
+								</div>
+								<hr class="my-4">
+								<p class="mt-5 mb-3 text-muted text-center">Judo-club Ploërmel © 2019</p>
+	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 <div id="response"></div>
 </body>

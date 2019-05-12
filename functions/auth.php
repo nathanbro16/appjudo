@@ -187,7 +187,7 @@ class session
 
 	private function is_activate()
 	{
-		if (session_start() === PHP_SESSION_NONE) {
+		if (session_status() === PHP_SESSION_NONE) {
 			session_start();
 		}
 	}
@@ -203,7 +203,7 @@ class session
 				exit();
 		}
 	}
-	public function Get_id_User(){
+	protected function Get_id_User(){
 		return $_SESSION['id'];
 	}
 }

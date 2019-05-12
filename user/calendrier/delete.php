@@ -1,9 +1,11 @@
 <?php
+require_once '../../conf.php';
+require_once '../../functions/auth.php';
 require_once '../../functions/user.php';
 require_once 'class.php';
-include '../../conf.php';
-$user = new user(BDD(), '../index.php');
-$events = new Events(BDD());
+$user = new user(BDD(isset($_GET['DEBUG'])), '../index.php');
+$user->find_user_info();
+$events = new Events(BDD(false));
 
 if (!empty($_GET['id'])):
 	try {

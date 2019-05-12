@@ -5,122 +5,25 @@
 	<title>Judo-club/plorëmel</title>
   <meta charset="utf-8">
 	<!-- css  -->
-	<link href="user.css" rel="stylesheet"/>
+	<link href="index.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.0/css/all.min.css" rel="stylesheet" />  
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.9.5/css/froala_editor.pkgd.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.9.5/css/froala_style.min.css" />
   <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.css' rel='stylesheet' />
 	<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.css' rel='stylesheet' media='print' />
   <!-- js  -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.js" ></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.9.5/js/froala_editor.pkgd.min.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.9.5/js/languages/fr.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js'></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/locale/fr.js"></script>
-	<!-- script -->
-	<script type="text/javascript">
-	    function heure(id){
-			date = new Date;
-
-			h = date.getHours();
-			if(h<10)
-			{
-			h = "0"+h;
-			}
-			m = date.getMinutes();
-			if(m<10)
-			{
-			m = "0"+m;
-			}
-			s = date.getSeconds();
-			if(s<10)
-			{
-			s = "0"+s;
-			}
-			resultat = ''+h+':'+m+':'+s;
-			document.getElementById(id).innerHTML = resultat;
-			setTimeout('heure("'+id+'");','1000');
-			return true;
-	    }
-	    function bonjs() {
-		    today=new Date()
-		    if(today.getHours() >= 0 && today.getHours() < 18) 
-		    {     
-		    document.getElementById('bonjour').innerHTML='Bonjour';
-		    setTimeout('bonjs();','1000');
-		    }
-		    else
-		    {     
-		    document.getElementById('bonjour').innerHTML='Bonsoir';
-		    setTimeout('bonjs();','1000');
-		    }
-	  	}
-	  	function page($name) {
-	  			var page = '';
-	  	  	if ($name !== undefined) {
-	  			var page = $name;
-	  		} else if (location.search.substring(1) !== '') {
-	  			var page = location.search.substring(1);
-	  		} else {
-	  			var page = "menu";
-	  		}
-	  		jQuery.ajax({
-
-
-		       url : 'user.php',
-
-		       type : 'GET',
-		       dataType : 'html',
-		       data : page,
-		       
-		       statusCode: {
-		       		401 : function(){
-				       	jQuery.ajax({
-
-					       url : '../error/401.php',
-
-					       type : 'GET',
-					       dataType : 'html', 
-					       success : function(data, statut){
-									jQuery('head').attr('id','head');
-									jQuery('body').attr('id','body');
-									jQuery("html").prepend(data);
-					       },
-					       error : function(data, statut, erreur){ 
-					
-
-					       },
-					       
-
-
-					    });
-					},
-						
-				},
-		       success : function(data, statut){ 
-				    jQuery("body").html(data);
-
-
-		       },
-		   }),
-		    history.pushState({ path: this.path }, '', '?'+page);
-	  	}
-	  	function $_GET(param) {
-			var t = location.search.substring(1).split('&');
-			var f = [];
-			for (var i=0; i<t.length; i++){
-				var x = t[ i ].split('=');
-				f[x[0]]=x[1];
-			}
-			return f;
-		}
-	  	jQuery(document).ready(function() {
-	  		page();
-	  		//time = setInterval('document.location.href="../deconnect.php"','60000');
-		});
-  	</script>
+	<script src="index.js"></script>
 </head>
 <body>
 

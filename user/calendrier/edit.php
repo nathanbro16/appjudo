@@ -1,7 +1,11 @@
 <?php
-include '../../conf.php';
-require 'class.php';
-$events = new Events(BDD());
+require_once '../../conf.php';
+require_once '../../functions/auth.php';
+require_once '../../functions/user.php';
+require_once 'class.php';
+$user = new user(BDD(isset($_GET['DEBUG'])), '../index.php');
+$user->find_user_info();
+$events = new Events(BDD(false));
 $errors = [];
 if (!isset($_GET['id'])) {
   echo "pas id";
@@ -63,6 +67,7 @@ elseif (isset($_GET['InterfaceEdit'])):
 <script>
   //Formulaire
 jQuery(document).ready(function() {
+    
     jQuery("#addmodif").click(function(e){addmodif('<?= $event->getid(); ?>');});
     jQuery("#delete").click(function(e){eventdel('<?= $event->getid(); ?>');});
 });
@@ -107,7 +112,28 @@ function eventdel($id) {
       });
 
 }
+function EditText(id){
+  var idevent = id;
+  window.open('edit.php?id='+idevent+'&Text','test','menubar=no, scrollbars=no, location=no');
+}
 </script>
+<style>
+    div#editor {
+      width: 81%;
+      margin: auto;
+      text-align: left;
+    }
+
+    .modal-body {
+      height: 500px;
+    }
+
+    .modal-dialog {
+      transform : none !important;
+      -webkit-transform : none !important;
+      -moz-transform : none !important;
+    }
+</style>
 
 
       <div class="modal-header">
@@ -161,7 +187,9 @@ function eventdel($id) {
         <div>
           <div class="form-group" id="grdescription">
             <label for="description">Description</label>
-            <textarea id="description" class="form-control" ><?= $event->getdescription(); ?></textarea>
+            <div id="description">
+              <?= $event->getdescription(); ?>
+            </div>
           </div>
 
         </div>

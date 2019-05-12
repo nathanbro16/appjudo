@@ -1,7 +1,10 @@
 <?php
-include 'class.php';
-include 'validator.php';
-include '../../conf.php';
+require_once '../../conf.php';
+require_once '../../functions/auth.php';
+require_once '../../functions/user.php';
+require_once 'class.php';
+$user = new user(BDD(isset($_GET['DEBUG'])), '../index.php');
+$user->find_user_info();
 if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 	$data = $_POST;
 	$errors = [];
@@ -27,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 		endforeach;
 	else:
 		$event = new Event();
-  	$events = new Events(BDD());
+  	$events = new Events(BDD(false));
     $events->hydrate($event, $data);
 		$events->create($event);
 		?>

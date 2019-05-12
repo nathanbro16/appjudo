@@ -5,7 +5,7 @@
 	<div class="collapse navbar-collapse" id="navbarText">
 	    <ul class="navbar-nav mr-auto">
 	      <li class="nav-item <?= isset($_GET['menu']) ? 'active' : null ;?>">
-	        <a class="nav-link" href="javascript:page('menu')">Menu</a>
+	        <a class="nav-link" href="<?= isset($_GET['menu']) ? null : 'javascript:page(\'menu\')' ;?>">Menu</a>
 	      </li>
 	      <li class="nav-item dropdown <?= (isset($_GET['calendrier']) || isset($_GET['calendrier-ins'])) ? 'active' : null; ?>">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" data-offset="flip" aria-haspopup="true" aria-expanded="false">Calendrier</a>

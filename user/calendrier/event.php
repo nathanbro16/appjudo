@@ -1,7 +1,11 @@
 <?php
-include '../../conf.php';
-require 'class.php';
-$events = new Events(BDD());
+require_once '../../conf.php';
+require_once '../../functions/auth.php';
+require_once '../../functions/user.php';
+require_once 'class.php';
+$user = new user(BDD(isset($_GET['DEBUG'])), '../index.php');
+$user->find_user_info();
+$events = new Events(BDD(false));
 if (!isset($_GET['id'])) {
 
 }
@@ -29,6 +33,7 @@ $month = new Month($event->getstart()->format('m') ?? null,$event->getstart()->f
 	
       </div>
       <div class="modal-footer">
+        <?= ($event->getinscp() > 0) ? '<button type="button" class="btn btn-secondary" onclick="page(\'calendrier-ins='.$event->getid().'\');" >Close</button>' : null;  ?>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" id="btnedit" onclick="getedit('<?=$event->getid();?>');" class="btn btn-primary">Modifier</button>
       </div>

@@ -4,11 +4,6 @@
 	<title>Erreur 401</title>
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  <script>
-  jQuery('#body').remove();
-  jQuery('#head').remove();
-
-  </script>
     <style type="text/css">
     #bod,
 html{

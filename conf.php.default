@@ -6,7 +6,7 @@ Params editable
 function GetParamsCategoryAge()
 {
 	$categoryages = array(
-		'male' =>
+		'M' =>
 		array(
 			'5' => 'Mini poussins',
 			'7' => 'Poussins',
@@ -16,8 +16,9 @@ function GetParamsCategoryAge()
 			'15' => 'Cadets',
 			'18' => 'Juniors',
 			'21' => 'Seniors',
+			'31' => 'Vétérans'
 		),
-		'female' =>
+		'F' =>
 		array(
 			'5' => 'Mini poussins',
 			'7' => 'Poussins',
@@ -27,6 +28,7 @@ function GetParamsCategoryAge()
 			'15' => 'Cadettes',
 			'18' => 'Juniors',
 			'21' => 'Seniors',
+			'31' => 'Vétérans'
 		),
 	);
 	return $categoryages;
@@ -35,39 +37,49 @@ function GetParamsCategoryAge()
 function GetParamsRankJudo()
 {
 	$RankJudo = array(
-		array('name' => '6<SUP>ème</SUP> Kyu / Blanche', 'html' => '1'),
-		array('name' => 'Blanche - Jaune', 'html' => '2'),
-		array('name' => '5<SUP>ème</SUP> Kyu / Jaune', 'html' => '3'),
-		array('name' => 'Jaune - Orange', 'html' => '4'),
-		array('name' => '4<SUP>ème</SUP> Kyu / Orange', 'html' => '5'),
-		array('name' => 'Orange - Verte', 'html' => '6'),
-		array('name' => '3<SUP>ème</SUP> Kyu / Verte', 'html' => '7'),
-		array('name' => 'Verte - Bleu', 'html' => '8'),
-		array('name' => '2<SUP>ème</SUP> Kyu / Bleu', 'html' => '9'),
-		array('name' => '1<SUP>er</SUP> Kyu / Maron', 'html' => '10'),
-		array('name' => '1<SUP>er</SUP> Dan', 'html' => '11'),
-		array('name' => '2<SUP>ème</SUP> Dan', 'html' => '11'),
-		array('name' => '3<SUP>ème</SUP> Dan', 'html' => '11'),
-		array('name' => '4<SUP>ème</SUP> Dan', 'html' => '11'),
-		array('name' => '5<SUP>ème</SUP> Dan', 'html' => '11'),
-		array('name' => '6<SUP>ème</SUP> Dan', 'html' => '12'),
-		array('name' => '7<SUP>ème</SUP> Dan', 'html' => '12'),
-		array('name' => '8<SUP>ème</SUP> Dan', 'html' => '12'),
-		array('name' => '9<SUP>ème</SUP> Dan', 'html' => '13'),
-		array('name' => '10<SUP>ème</SUP> Dan', 'html' => '13'),
+		array('name' => '6<SUP>ème</SUP> Kyu / Blanche', 'html' => '1', 'css' => 'background-color: rgba(236,240,241 ,0.7);'),
+		array('name' => 'Blanche - Jaune', 'html' => '2', 'css' => 'background: linear-gradient(to right, rgba(246,184,59,0.7) 0%, rgba(246,184,59,0.7) 25%, rgba(255,255,255,0.7) 25%, rgba(255,255,255,0.7) 50%, rgba(246,184,59,0.7) 50%, rgba(246,184,59,0.7) 75%, rgba(255,255,255,0.7) 75%, rgba(255,255,255,0.7) 100%);'),
+		array('name' => '5<SUP>ème</SUP> Kyu / Jaune', 'html' => '3', 'css' => 'background-color: rgba(246,184,59,0.7);'),
+		array('name' => 'Jaune - Orange', 'html' => '4', 'css' => 'background: linear-gradient(to right, rgba(246,184,59,0.7) 0%, rgba(246,184,59,0.7) 25%, rgba(211,84,0,0.7) 25%, rgba(211,84,0,0.7) 50%, rgba(246,184,59,0.7) 50%, rgba(246,184,59,0.7) 75%, rgba(211,84,0,0.7) 75%, rgba(211,84,0,0.7) 100%);'),
+		array('name' => '4<SUP>ème</SUP> Kyu / Orange', 'html' => '5', 'css' => 'background-color: rgba(211,84,0,0.7);'),
+		array('name' => 'Orange - Verte', 'html' => '6', 'css' => 'background :linear-gradient(to right, rgba(46,204,112,0.7) 0%, rgba(46,204,112,0.7) 25%, rgba(211,84,0,0.7) 25%, rgba(211,84,0,0.7) 50%, rgba(46,204,112,0.7) 50%, rgba(46,204,112,0.7) 75%, rgba(211,84,0,0.7) 75%, rgba(211,84,0,0.7) 100%);'),
+		array('name' => '3<SUP>ème</SUP> Kyu / Verte', 'html' => '7', 'css' => 'background-color: rgba(46,204,113 ,0.7);'),
+		array('name' => 'Verte - Bleu', 'html' => '8', 'css' => 'background: linear-gradient(to right, rgba(46,204,112,0.7) 0%, rgba(46,204,112,0.7) 25%, rgba(53,153,219,0.7) 25%, rgba(53,153,219,0.7) 50%, rgba(46,204,112,0.7) 50%, rgba(46,204,112,0.7) 75%, rgba(53,153,219,0.7) 75%, rgba(53,153,219,0.7) 100%);'),
+		array('name' => '2<SUP>ème</SUP> Kyu / Bleu', 'html' => '9', 'css' => 'background-color: rgba(52,152,219 ,0.7);'),
+		array('name' => '1<SUP>er</SUP> Kyu / Marron', 'html' => '10', 'css' => 'background-color: rgba(93,64,55 ,0.7); '),
+		array('name' => '1<SUP>er</SUP> Dan', 'html' => '11', 'css' => 'background-color: rgba(33,33,33 ,1);'),
+		array('name' => '2<SUP>ème</SUP> Dan', 'html' => '11', 'css' => 'background-color: rgba(33,33,33 ,1);'),
+		array('name' => '3<SUP>ème</SUP> Dan', 'html' => '11', 'css' => 'background-color: rgba(33,33,33 ,1);'),
+		array('name' => '4<SUP>ème</SUP> Dan', 'html' => '11', 'css' => 'background-color: rgba(33,33,33 ,1);'),
+		array('name' => '5<SUP>ème</SUP> Dan', 'html' => '11', 'css' => 'background-color: rgba(33,33,33 ,1);'),
+		array('name' => '6<SUP>ème</SUP> Dan', 'html' => '12', 'css' => 'background: linear-gradient(to right, rgba(235,48,6,0.7) 0%, rgba(235,48,6,0.7) 25%, rgba(255,255,255,0.7) 25%, rgba(255,255,255,0.7) 50%, rgba(235,48,6,0.7) 50%, rgba(235,48,6,0.7) 75%, rgba(255,255,255,0.7) 75%, rgba(255,255,255,0.7) 100%);'),
+		array('name' => '7<SUP>ème</SUP> Dan', 'html' => '12', 'css' => 'background: linear-gradient(to right, rgba(235,48,6,0.7) 0%, rgba(235,48,6,0.7) 25%, rgba(255,255,255,0.7) 25%, rgba(255,255,255,0.7) 50%, rgba(235,48,6,0.7) 50%, rgba(235,48,6,0.7) 75%, rgba(255,255,255,0.7) 75%, rgba(255,255,255,0.7) 100%);'),
+		array('name' => '8<SUP>ème</SUP> Dan', 'html' => '12', 'css' => 'background: linear-gradient(to right, rgba(235,48,6,0.7) 0%, rgba(235,48,6,0.7) 25%, rgba(255,255,255,0.7) 25%, rgba(255,255,255,0.7) 50%, rgba(235,48,6,0.7) 50%, rgba(235,48,6,0.7) 75%, rgba(255,255,255,0.7) 75%, rgba(255,255,255,0.7) 100%);'),
+		array('name' => '9<SUP>ème</SUP> Dan', 'html' => '13', 'css' => 'background-color: rgba(235, 47, 6, 0.7);'),
+		array('name' => '10<SUP>ème</SUP> Dan', 'html' => '13', 'css' => 'background-color: rgba(235,47,6 ,0.7);'),
 	);
 	return $RankJudo;
 }
 /*
 Database
 */
-function BDD()
-{
-	$DB_HOST = "";
-	$DB_NAME = "";
-	$DB_LOGIN = "";
-	$DB_PASSWORD = "";
-	return new PDO('mysql:host='.$DB_HOST.';dbname='.$DB_NAME.';charset=utf8', $DB_LOGIN, $DB_PASSWORD);
+function BDD(bool $DEBUG){
+	try {
+		$DB_HOST = "127.0.0.1";
+		  $DB_NAME = "appjudo";
+		  $DB_LOGIN = "appjudo-full";
+		  $DB_PASSWORD = "";
+		  $BD_Connect = new PDO('mysql:host='.$DB_HOST.';dbname='.$DB_NAME.';charset=utf8', $DB_LOGIN, $DB_PASSWORD);
+		  $BD_Connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		  $return = $BD_Connect;
+	}catch (PDOException $e){
+		http_response_code(500);
+		require 'error/503-DB.php';
+		die();
+	}catch (Exception $e){
+		  die('Erreur SQL : '.$e->getMessage());
+	}
+	return $return;
 }
 
 /*

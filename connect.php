@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 	include 'conf.php';
 	if (isset($_GET['connect'])):
 		$user = new AuthentValidator();
-		$ErrorAuth = $user->validatesconnect($_POST, BDD());
+		$ErrorAuth = $user->validatesconnect($_POST, BDD(false));
 		?>
 		<script>
 				jQuery('.alert').remove();
@@ -14,11 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 		</script>
 		<?php
 		if (!empty($ErrorAuth['errors'])) {
+			?><script>Get_load('hide');</script><?php
 			foreach ($ErrorAuth['errors'] as $k => $error) {
 		      ?>
 		      <script>
-		        jQuery("#charging").hide();
-		        jQuery("#form").show();
+						
 		        jQuery('#error<?= $k ?>').remove();
 		        jQuery('#input<?= $k ?>').removeClass('is-valid').addClass('is-invalid');
 		        jQuery('#error').append('<div class="alert alert-danger" id="error<?= $k ?>" role="alert"><i class="fas fa-times"></i> <?= $error ?> </div>');
@@ -32,7 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 				?>
 				<script>
 					$('#action').text('Vous allez être rediriger.');
-				  document.location.href="user/";
+					setTimeout(function() {
+						document.location.href="user/";
+					}, 5000);
 				</script>
 			  <?php
 			}
@@ -40,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 		}
 	elseif (isset($_GET['newpass'])):
 		$user = new AuthentValidator();
-		$ErrorAuth = $user->validatesnewpassword($_POST, BDD());
+		$ErrorAuth = $user->validatesnewpassword($_POST, BDD(false));
 		require_once 'connect/VerifyNewPassword.php';
 		
 	endif;

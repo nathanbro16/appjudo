@@ -1,5 +1,10 @@
 <?php
 require_once 'functions/auth.php';
+require_once 'conf.php';
+
+BDD(isset($_GET['DEBUG']));
+
+
 if (is_connect()){
   ?> <script>
   document.location.href="user/";
@@ -10,4 +15,5 @@ if (is_connect()){
 }elseif(empty($_SESSION)){
   require_once 'connect.html';
 }
+
 ?>

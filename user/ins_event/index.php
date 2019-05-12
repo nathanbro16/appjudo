@@ -1,9 +1,9 @@
 <?php
-include 'class.php';
-// Récupération udes infos utilisateur
+				setlocale(LC_TIME, "fr_FR");
 
+include 'class.php';
 try {
-	$insevent = new inscripevent($id ?? null, BDD());
+	$insevent = new inscripevent($id ?? null, BDD(false));
 	$infoevent = $insevent->validins();
 } catch (Exception $e) {
 	echo $e->getMessage();
@@ -22,6 +22,7 @@ if (!empty($errors)) {
 endif;
 
 $jobs = $insevent->getjobs();
+$date = new DateTime($infoevent['start']);
 ?>
 
 <script>
@@ -45,8 +46,7 @@ function insjobs() {
 }
 
 </script>
-
-<div class="container-fluid" style="padding-top: 1%; padding-bottom:5%; ">
+<div style="padding-top: 1%; padding-bottom:5%; ">
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item text-primary">Calendrier</li>
@@ -54,42 +54,46 @@ function insjobs() {
 		</ol>
 	</nav>
 	<div class="card" >
-			<div class="card-body">
-				<h3 class="col"><?= $infoevent['eventname'] ?><?= $infoevent['start']; ?></h3>
-				<table class="table table-hover table-info">
-					<thead>
-						<th>#</th>
-						<th>Nom du post</th>
-						<th>Nombre maximum</th>
-						<th>Nombre restant</th>
-						<th>Age minimun</th>
-						<th>Actions</th>
-					</thead>
-					<tbody>
-					<?php
-					$i = 0 ;
-					if (count($jobs) === 0) {
-						echo "Il n'y a pas de poste disponible veuiller contacter un référent du club ou patienter.";
+		<div class="card-body">
+			<h3 class="col"><?= $infoevent['eventname'] ?>, le <?= strftime('%A %e %B, à %H:%M',$date->format('U')); ?></h3>
+			<table class="table table-hover table-info">
+				<thead>
+					<th>#</th>
+					<th>Nom du post</th>
+					<th>Nombre maximum</th>
+					<th>Nombre restant</th>
+					<th>Age minimun</th>
+					<th>Actions</th>
+				</thead>
+				<tbody>
+				<?php
+
+				$i = 0 ;
+				foreach ($jobs as $job):
+					if (($job['Max_person']-$insevent->getperson($job['id'])) != 0) {
+						$inscrips[] = $job;
 					}
-					foreach ($jobs as $job):
-						if (($job['Max_person']-$insevent->getperson($job['id'])) != 0) {
-							$inscrips[] = $job;
-						}
-						echo "<tr>\n";
-						echo "<td>". ($i ++)."</td>\n" ;
-						echo "<td>".$job['name']."</th>\n";
-						echo "<td>".$job['Max_person']."</th>\n";
-						echo "<td>".($job['Max_person']-$insevent->getperson($job['id']))."</th>\n";
-						echo "<td>".$insevent->age($job['Max_old'])." ans </th>\n";
-						echo "</tr>\n";
+					echo "<tr>\n";
+					echo "<td>". ($i ++)."</td>\n" ;
+					echo "<td>".$job['name']."</th>\n";
+					echo "<td>".$job['Max_person']."</th>\n";
+					echo "<td>".($job['Max_person']-$insevent->getperson($job['id']))."</th>\n";
+					echo "<td>".$insevent->age($job['Max_old'])." ans </th>\n";
+					echo "</tr>\n";
 
-					endforeach;
-
-					?>				
-					</tbody>
-				</table>
-			</div>
+				endforeach;
+				?>				
+				</tbody>
+			</table>
+			
+			<?php
+			if (count($jobs) === 0) {
+					echo '<div class="alert alert-warning" role="alert">Il n\'y a pas de poste disponible veuiller contacter un référent du club ou patienter.</div>';
+			}?>
+		</div>
 	</div>
 </div>
-<div id="js"></div>
-	<?php
+<div id="js">
+
+</div>
+
