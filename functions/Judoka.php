@@ -62,21 +62,17 @@ class Judoka extends session
                }
            }
            
-        ?>
-            <select class="custom-select" required>
-                <?php
+            echo '<select class="custom-select" id="Judoka">';
                 foreach ($list_judokas as $judoka):
                     $select = (isset($_GET['judoka']) and $_GET['judoka'] === $judoka['Name'].'-'.$judoka['Surname'] )  ? 'selected' : '' ; 
                     echo '<option '.$select.' value="'.$judoka['Name'].'-'.$judoka['Surname'].'">'.$judoka['Name'].'-'.$judoka['Surname'].' / '.$this->getnameyear($judoka['Sexe'], $judoka['Year_of_birth']).'</option>
                     ';
                 endforeach;
-                ?>
-            </select>
-        <?php
+               
+            echo'</select>';
         } else {
             if ($list_judokas[0]['Surname'] === $userinfo->getsurname() AND $list_judokas[0]['Name'] === $userinfo->getname() ) {
-                ?><img src="../grade/<?=$RankJudo[$list_judokas[0]['Rank']]['html']?>.png" width="60" height="30" class="d-inline-block align-top" alt="">
-                <h5 class="text-right" style="margin-bottom:0;">/ <?php
+                ?><h5 class="text-right" style="margin-bottom:0;"> <?=$RankJudo[$list_judokas[0]['Rank']]['name']?> / <?php
             } else {
                 ?><img src="../grade/<?=$RankJudo[$list_judokas[0]['Rank']]['html']?>.png" width="60" height="30" class="d-inline-block align-top" alt="">
                 <h5 class="text-right" style="margin-bottom:0;">  <?= $list_judokas[0]['Surname'] ?>-<?= $list_judokas[0]['Name'] ?> / <?php

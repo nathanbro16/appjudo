@@ -40,12 +40,8 @@ require 'header.php';
 $judokas = new Judoka(BDD(isset($_GET['DEBUG'])));
 ?>
 <script>
-		jQuery(document).ready(function() {
-			jQuery("#acc").click(function(e){page("menu");});
-	  		jQuery("#calendrier").click(function(e){page("calendrier");});
-	  		<?= $script ?>
-		});
-		var ParamsRemove = <?= $ParamsRemove ?> ;
+	ChangeJudoka();
+	var ParamsRemove = <?= $ParamsRemove ?> ;
 </script>
 <!-- container fluid start -->
 <div id='container' class="container-fluid" style="padding-top: 2%; padding-bottom:5%; " >

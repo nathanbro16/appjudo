@@ -66,20 +66,24 @@ function assemblevars(onearray, towarray){
     }
     return f;
 }
+function ChangeGet(NameNewPage){
+    var get = $_GET();
+    Params = TransformParamsURLtoJOSON(ParamsRemove);
+    for (const [key, value] of Object.entries(Params)) {
+        if(typeof(get[key]) !== undefined){
+            delete get[key];
+        }
+    }
+    var prams = TransformParamsURLtoJOSON(NameNewPage);
+    get = TransformJSONToURLParams(assemblevars(prams, get));
+    return get
+}
 function page(NameNewPage) {
     
     var page = '';
     if (NameNewPage !== undefined) {
-        var get = $_GET();
-        var NameCurrentPage = ParamsRemove;
-        if(typeof(get[NameCurrentPage]) !== undefined){
-            delete get[NameCurrentPage];
-            var prams = TransformParamsURLtoJOSON(NameNewPage);
-            console.log('ok');
-            get = TransformJSONToURLParams(assemblevars(prams, get));
-        }
-        page = get
-        console.log(page);
+        page = ChangeGet(NameNewPage);
+        console.log('Get of new page:'+page);
     } else if (location.search.substring(1) !== '') {
         page = location.search.substring(1);
     } else {
@@ -99,7 +103,7 @@ function page(NameNewPage) {
     });
     history.pushState({ path: this.path }, '', '?'+page);
 }
-function $_GET(param) {
+function $_GET() {
     var t = location.search.substring(1).split('&');
     var f = [];
     for (var i=0; i<t.length; i++){
@@ -108,7 +112,18 @@ function $_GET(param) {
     }
     return f;
 }
-jQuery(document).ready(function() {
+function ChangeJudoka(){
+    $("#Judoka").change(function(){
+        var JudokaSelected = jQuery("#Judoka").val();
+        console.log('Judoka Selected:'+ JudokaSelected);
+        ParamsRemove = ParamsRemove + '&judoka';
+        page( ParamsRemove + '&judoka=' + JudokaSelected);
+    });
+}
+
+$(document).ready(function() {
     page();
-    //time = setInterval('document.location.href="../deconnect.php"','60000');
+ 
 });
+
+
