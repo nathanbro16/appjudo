@@ -7,9 +7,9 @@ class Judoka extends session
     private $bdd;
     private $judokas;
 
-    public function __construct(\PDO $bdd)
+    public function __construct($DB)
     {
-        $this->bdd = $bdd;
+        $this->bdd = $DB->BD_Connetion();
         $this->list_judoka_user();
     }
     private function list_judoka_user()

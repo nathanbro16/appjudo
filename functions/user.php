@@ -7,15 +7,12 @@ class user extends session
   private $session;
 	private $infouser;
 
-  function __construct (\PDO $bdd, string $RedirectURL){
-      $this->ini_bdd($bdd);
-      $session = new session();
-      $session->force_user_connect();
-      $this->session = $session;
+  function __construct ($DB, string $RedirectURL, string $Dir){
+		$this->bdd = $DB->BD_Connetion();
+    $session = new session();
+    $session->force_user_connect($Dir);
+    $this->session = $session;
 
-  }
-  private function ini_bdd(\PDO $bdd){
-      $this->bdd = $bdd;
   }
 	public function find_user_info() {
     $id = $this->Get_id_User();

@@ -1,11 +1,12 @@
 <?php
-require_once '../../conf.php';
+require_once '../../functions/DBB.php';
 require_once '../../functions/auth.php';
 require_once '../../functions/user.php';
 require_once 'class.php';
-$user = new user(BDD(isset($_GET['DEBUG'])), '../index.php');
+$DB = new DB(false, '../../');
+$user = new user($DB, '../../index.php', '../../');
 $user->find_user_info();
-$events = new Events(BDD(false));
+$events = new Events($DB);
 if (!isset($_GET['id'])) {
 
 }
@@ -33,8 +34,8 @@ $month = new Month($event->getstart()->format('m') ?? null,$event->getstart()->f
 	
       </div>
       <div class="modal-footer">
-        <?= ($event->getinscp() > 0) ? '<button type="button" class="btn btn-secondary" onclick="page(\'calendrier-ins='.$event->getid().'\');" >Close</button>' : null;  ?>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quitter</button>
+        <?= ($event->getinscp() > 0) ? '<button type="button" class="btn btn-info" onclick="page(\'calendrier-ins='.$event->getid().'\');" >S\'inscrire</button>' : null;  ?>
         <button type="button" id="btnedit" onclick="getedit('<?=$event->getid();?>');" class="btn btn-primary">Modifier</button>
       </div>
     </div>

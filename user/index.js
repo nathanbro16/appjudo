@@ -69,7 +69,7 @@ function assemblevars(onearray, towarray){
 function ChangeGet(NameNewPage){
     var get = $_GET();
     Params = TransformParamsURLtoJOSON(ParamsRemove);
-    for (const [key, value] of Object.entries(Params)) {
+    for (const [key] of Object.entries(Params)) {
         if(typeof(get[key]) !== undefined){
             delete get[key];
         }

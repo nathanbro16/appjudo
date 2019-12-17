@@ -80,6 +80,32 @@ function Get_load(params) {
     }
 
 }
+function $_GET() {
+  var t = location.search.substring(1).split('&');
+  var f = [];
+  for (var i=0; i<t.length; i++){
+      var x = t[ i ].split('=');
+      f[x[0]]=x[1];
+  }
+  return f;
+}
+function NewPassword(){
+  var get = $_GET();
+  if(typeof(get['NewPassword']) !== undefined){
+    var xmlRequest =  jQuery.ajax({
+        url : 'connect.php',
+        type : 'GET',
+        dataType : 'html',
+        data : 'NewPassword='+get['NewPassword'],
+    });
+    xmlRequest.done( function(html){ 
+       
+    });
+    xmlRequest.fail( function(textStatus){
+        
+    });
+  }
+}
 function connect() {
   Get_load('show');
 

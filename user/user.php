@@ -2,8 +2,8 @@
 require_once '../functions/auth.php';
 require_once '../functions/user.php';
 require_once '../functions/Judoka.php';
-require_once '../conf.php';
-
+require_once '../functions/DBB.php';
+$DB = new DB(isset($_GET['DEBUG']), '../');
 if (isset($_GET['calendrier'])):
 
 	$ParamsRemove = "'calendrier'";
@@ -34,10 +34,10 @@ else:
 endif;
 
 
-$user = new user(BDD(isset($_GET['DEBUG'])), '../index.php');
+$user = new user($DB,'../index.php', '../');
 $userinfo = $user->find_user_info();
 require 'header.php';
-$judokas = new Judoka(BDD(isset($_GET['DEBUG'])));
+$judokas = new Judoka($DB);
 ?>
 <script>
 	ChangeJudoka();

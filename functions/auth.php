@@ -5,12 +5,12 @@ class AuthentValidator extends Authent
 	/**
 	* @param $data formulaire
 	*/
-	public function validatesconnect(array $data,\PDO $db):array{
+	public function validatesconnect(array $data,object $db):array{
 		parent::validates($data, $db);
-		$this->validate('login', 'separator', '-');
-		if (empty($this->errors)) $this->validate('login', 'userexist');
-		$this->validate('Password', 'passexist');
-		if (empty($this->errors)) $this->validate('Password', 'passtrue');
+		$this->validate('login', 'separator', '-'); 
+		if (empty($this->errors)) $this->validate('login', 'UserExist');
+		$this->validate('Password', 'PasswordExist');
+		if (empty($this->errors)) $this->validate('Password', 'PasswordIsValid');
 		$return['errors'] = $this->errors;
 		if (empty($this->errors)) $return['newpass'] = $this->newpass;
 		if (empty($this->errors)) $return['infouser']['name'] = $this->data['name'];
@@ -20,7 +20,7 @@ class AuthentValidator extends Authent
 	/**
 	* @param $data formulaire
 	*/
-	public function validatesnewpassword(array $data,\PDO $db):array{
+	public function validatesnewpassword(array $data,object $db):array{
 		parent::validates($data, $db);
 		$this->validate('Password1', 'insertpassword', 'Password1', 'Password2');
 		$return['errors'] = $this->errors;
@@ -41,10 +41,11 @@ class Authent
 	public $nameerror = [];
 	public $newpass = [];
 
-	protected function validates(array $data,\PDO $db){
+	protected function validates(array $data,object $db){
 		$this->errors = [];
 		$this->data = $data;
-		$this->bdd = $db;
+		$this->bdd = $db->BD_Connetion();
+
 
 	}
 	/**
@@ -64,8 +65,8 @@ class Authent
 	/**
 	*
 	*@param $filed champ,
-	*@param $filed champ,
-
+	*@param $separator font separator,
+	*@return boolean 
 	*/
 	public function separator(string $field, string $separator)
 	{
@@ -78,7 +79,7 @@ class Authent
 		return false;
 
 	}
-	public function userexist(string $field)
+	public function UserExist(string $field)
 	{
 		$requser = $this->bdd->prepare("SELECT COUNT(*) FROM user WHERE name = ? AND surname = ?");
 		$requser->execute(array($this->data['name'], $this->data['surname']));
@@ -91,7 +92,7 @@ class Authent
 		}
 		return true;
 	}
-	public function passexist(string $field)
+	public function PasswordExist(string $field)
 	{
 		if (empty($this->errors)) {
 			$requser = $this->bdd->prepare("SELECT * FROM user WHERE name = ? AND surname = ?");
@@ -104,7 +105,32 @@ class Authent
 			return true;
 		}
 	}
-	public function passtrue(string $filed)
+	private function BirthYear(string $field){
+		if (is_numeric($this->data[$filed])) {
+			if (mb_strlen($this->data[$filed]) === 8) {
+				$month = substr($this->data[$filed], 2,-4 );
+				$day = substr($this->data[$filed], 0,-6 );
+				$year = substr($this->data[$filed], 4);
+				if (checkdate($month, $day, $year)) {
+					$birth = $year.'-'.$month.'-'.$day;
+					if ($birth === $userinfo['birth'] ) {
+						session_start();
+						$_SESSION['id'] = $userinfo['id'];
+						$_SESSION['newpass'] = true;
+						return true;
+					}
+					$this->errors[$filed] = $texterror."ne correspond pas.";
+					return false;
+				}
+				$this->errors[$filed] = $texterror."n'exsiste pas.";
+				return false;
+			}
+		}
+		$this->errors[$filed] = $texterror."dois comporter 8 chiffre. Exemple : ".date("dmY.");
+		return false;
+
+	}
+	public function PasswordIsValid(string $filed)
 	{
 		if ($this->newpass === true) {
 			$sql = "SELECT birth, id, name FROM user WHERE name = ? AND surname = ?";
@@ -113,40 +139,15 @@ class Authent
 			$sql = "SELECT pass, id, name FROM user WHERE name = ? AND surname = ?";
 			$texterror = "Le mot de passe, ";
 		}
-
 		$requser = $this->bdd->prepare($sql);
 		$requser->execute(array($this->data['name'], $this->data['surname']));
 		$userinfo = $requser->fetch();
-
 		if ($this->newpass === true) {
-			if (is_numeric($this->data[$filed])) {
-				if (mb_strlen($this->data[$filed]) === 8) {
-					$month = substr($this->data[$filed], 2,-4 );
-					$day = substr($this->data[$filed], 0,-6 );
-					$year = substr($this->data[$filed], 4);
-					if (checkdate($month, $day, $year)) {
-						$birth = $year.'-'.$month.'-'.$day;
-						if ($birth === $userinfo['birth'] ) {
-							session_start();
-							$_SESSION['id'] = $userinfo['id'];
-							$_SESSION['newpass'] = true;
-							return true;
-						}
-						$this->errors[$filed] = $texterror."ne correspond pas.";
-						return false;
-					}
-					$this->errors[$filed] = $texterror."n'exsiste pas.";
-					return false;
-				}
-			}
-			$this->errors[$filed] = $texterror."dois comporter 8 chiffre. Exemple : ".date("dmY.");
-			return false;
-
+			$this->BirthYear($filed);
 		}else{
 			if (password_verify($this->data[$filed], $userinfo['pass'])) {
-				session_start();
-				$_SESSION['id'] = $userinfo['id'];
-				$_SESSION['name'] = $userinfo['name'];
+				$session = new session();
+				$session->Init_User_Session($userinfo['id'], $userinfo['name']);
 				return true;
 			}
 			$this->errors[$filed] = $texterror."ne correspond pas.";
@@ -168,8 +169,6 @@ class Authent
 				return true;
 
 			}
-
-
 			$this->errors[$filed] = "Erreur technique, merci de veuillez contacter un responsable.";
 			return false;
 		}
@@ -184,6 +183,7 @@ class Authent
  */
 class session
 {
+	private $Time_Connect;
 
 	private function is_activate()
 	{
@@ -194,29 +194,49 @@ class session
 	private function is_connect():bool
 	{
 		$this->is_activate();
-		return !empty($_SESSION['name']) and !empty($_SESSION['id']) and !isset($_SESSION['newpass']) ;
+		return !empty($_SESSION['user']) and $this->Time_User_Connect_Is_Valid() ;
 	}
-	public function force_user_connect():void
+	public function force_user_connect(string $Dir):void
 	{
 		if(!$this->is_connect()){
 				http_response_code(401);
-				exit();
+				require_once $Dir.'error/401.php';
+				die();
 		}
 	}
-	protected function Get_id_User(){
-		return $_SESSION['id'];
+	protected function Get_id_User()
+	{
+		return $_SESSION['user']['id'];
 	}
+	/**
+	 * initialization form user session 
+	 * @param id user 
+	 * @param name user
+	 */
+	public function Init_User_Session($id_user, $name){
+		$this->is_activate();
+		$_SESSION['user']['id'] = $id_user;
+		$_SESSION['user']['name'] = $name;
+		$_SESSION['user']['date'] = new DateTime();
+	}
+	/**
+	 * initialization form session password
+	 * @param id user
+	 */
+	public function Init_Password($id_user){
+		$_SESSION['Password']['id'] = $id_user;
+		$_SESSION['Password']['date'] = new DateTime();
+	}
+	/**
+	 * Verify time connect not exeed 
+	 * @return boolean
+	 */
+	public function Time_User_Connect_Is_Valid():bool{
+		$Time_Current = new DateTime();
+		$Time_Authentication = clone $_SESSION['user']['date'] ;
+		$Time_Authentication->add(new DateInterval('PT30M'));
+		return ($Time_Authentication < $Time_Current ) ? false : true ;
+	}
+
 }
 
-function is_connect():bool {
-	if (session_status() === PHP_SESSION_NONE) {
-			session_start();
-	}
-	return !empty($_SESSION['name']) and !empty($_SESSION['id']) and !isset($_SESSION['newpass']) ;
-}
-function force_user_connect():void {
-	if(!$this->is_connect()){
-			http_response_code(401);
-			exit();
-	}
-}

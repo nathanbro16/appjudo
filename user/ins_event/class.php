@@ -6,12 +6,12 @@ class inscripevent
 {
 	private $bdd;
 	private $idevent;	
-	function __construct($idevent = null , $bdd)
+	function __construct($idevent = null , $DB)
 	{
 		if ($idevent == null) {
 			throw new Exception("Vous devez présier un id d'un évènement.");
 		}
-		$this->bdd = $bdd;
+		$this->bdd = $DB->BD_Connetion();
 		$this->idevent = $idevent;
 	}
 	public function validins()

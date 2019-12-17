@@ -1,9 +1,8 @@
 <?php
-				setlocale(LC_TIME, "fr_FR");
-
-include 'class.php';
+setlocale(LC_TIME, "fr_FR");
+require_once 'class.php';
 try {
-	$insevent = new inscripevent($id ?? null, BDD(false));
+	$insevent = new inscripevent($id ?? null, $DB);
 	$infoevent = $insevent->validins();
 } catch (Exception $e) {
 	echo $e->getMessage();

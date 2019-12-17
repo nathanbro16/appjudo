@@ -1,10 +1,11 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST'):
-	include 'functions/auth.php';
-	include 'conf.php';
+	require_once 'functions/auth.php';
+	require_once 'functions/DBB.php';
+	$DB = new DB(isset($_GET['DEBUG']), '');
 	if (isset($_GET['connect'])):
 		$user = new AuthentValidator();
-		$ErrorAuth = $user->validatesconnect($_POST, BDD(false));
+		$ErrorAuth = $user->validatesconnect($_POST, $DB);
 		?>
 		<script>
 				jQuery('.alert').remove();
@@ -28,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 		}else {
 		  	if ($ErrorAuth['newpass'] === true){
 					require_once 'connect/FormNewPassword.php';
-			} else {
+				} else {
 				?>
 				<script>
 					$('#action').text('Vous allez être rediriger.');
@@ -42,12 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
 		}
 	elseif (isset($_GET['newpass'])):
 		$user = new AuthentValidator();
-		$ErrorAuth = $user->validatesnewpassword($_POST, BDD(false));
+		$ErrorAuth = $user->validatesnewpassword($_POST, $DB);
 		require_once 'connect/VerifyNewPassword.php';
 		
 	endif;
+elseif($_SERVER['REQUEST_METHOD'] === 'GET' and isset($_GET['NewPassword'])):
+	echo 'ok';
 else:
 	http_response_code(406);
 endif;
 
-?>

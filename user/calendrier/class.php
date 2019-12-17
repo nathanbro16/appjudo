@@ -186,8 +186,8 @@ class Events
 
 	private $bdd;
 
-	public function __construct(\PDO $bdd){
-		$this->bdd = $bdd;
+	public function __construct($DB){
+		$this->bdd = $DB->BD_Connetion();
 	}
 
 	public function getEeventsBetween(\DateTimeImmutable $start, \DateTimeImmutable $end): array
